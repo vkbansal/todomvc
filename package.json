@@ -1,0 +1,35 @@
+{
+  "name": "learn-flux",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "alt": "^0.15.4",
+    "classnames": "^1.2.0",
+    "lodash": "^3.6.0",
+    "react": "^0.13.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^2.0.2",
+    "babelify": "^6.0.2",
+    "browserify": "^9.0.8",
+    "eslint": "^0.18.0",
+    "eslint-plugin-react": "^2.1.0",
+    "express": "^4.12.3",
+    "gulp": "^3.8.11",
+    "gulp-eslint": "^0.8.0",
+    "gulp-livereload": "^3.8.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-streamify": "0.0.5",
+    "gulp-uglify": "^1.1.0",
+    "reactify": "^1.1.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.1.0"
+  },
+  "scripts": {
+    "serve": "node server.js"
+  },
+  "author": "Vivek Kumar Bansal <contact@vkbansal.me>",
+  "license": "MIT"
+}
