@@ -1,15 +1,14 @@
 let React = require("react"),
     taskActions = require("../actions/task-actions"),
     taskStore = require("../stores/task-store"),
-    TaskItem = require("./task-item");
+    TaskItem = require("./task-item"),
+    AltMixin = require("../mixins/alt-mixin");
 
 module.exports = React.createClass({
     displayName: "TaskForm",
-    componentDidMount() {
-        taskStore.listen(this.handleUpdate);
-    },
-    componentWillUnMount() {
-        taskStore.unlisten(this.handleUpdate);
+    mixins: [AltMixin],
+    watchStores: {
+        handleUpdate: taskStore
     },
     getInitialState() {
         return taskStore.getState();
