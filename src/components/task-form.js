@@ -7,10 +7,8 @@ let React = require("react"),
 module.exports = React.createClass({
     displayName: "TaskForm",
     mixins: [AltMixin],
-    watchStores: {
-        handleUpdate: taskStore
-    },
-    getInitialState() {
+    watchStores: [taskStore],
+    getAltState() {
         return taskStore.getState();
     },
     render() {
