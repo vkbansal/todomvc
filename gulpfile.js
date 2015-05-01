@@ -11,7 +11,7 @@ var gulp    = require('gulp'),
     eslint = require('gulp-eslint');
 
 var handleErrors = function(){
-    args = Array.prototype.slice.call(arguments)
+    var args = Array.prototype.slice.call(arguments);
 
     //Send error to notification center with gulp-Notify
     notify.onError({
@@ -20,7 +20,7 @@ var handleErrors = function(){
     }).apply(this, args);
 
     //Keep gulp from hanging on this task
-    this.emit('end')
+    this.emit('end');
 };
 
 var browserifyTask = function (options) {
