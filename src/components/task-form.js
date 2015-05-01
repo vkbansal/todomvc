@@ -41,7 +41,7 @@ module.exports = React.createClass({
             React.findDOMNode(this.refs.input).value = "";
         }
     },
-    handleUpdate(tasks) {
+    handleUpdate() {
         this.setState(this.getInitialState());
     }
 });

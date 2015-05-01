@@ -1,6 +1,7 @@
 let React = require("react"),
-    { PropTypes } = React,
     taskActions = require("../actions/task-actions");
+
+let { PropTypes } = React;
 
 module.exports = React.createClass({
     displayName: "TaskItem",
@@ -41,4 +42,4 @@ module.exports = React.createClass({
     handleDelete() {
         taskActions.deleteTask(this.props.tid);
     }
-})
+});
