@@ -1,18 +1,48 @@
 let React = require("react"),
     PureRenderMixin = require("react/lib/ReactComponentWithPureRenderMixin"),
-    taskActions = require("../actions/task-actions");
+    { DragDropMixin } = require("react-dnd"),
+    taskActions = require("../actions/task-actions"),
+    ItemTypes = require("../item-types");
 
 let { PropTypes } = React;
 
+const dragSource = {
+    beginDrag(component) {
+        return {
+            item: {
+                id: component.props.id
+            }
+        }
+    }
+};
+
+const dropTarget = {
+    over(component, item) {
+        component.props.moveTask(item.id, component.props.id);
+    }
+}
+
 module.exports = React.createClass({
     displayName: "TaskItem",
-    mixins: [PureRenderMixin],
+    mixins: [PureRenderMixin, DragDropMixin],
     propTypes: {
-        tid: PropTypes.number.isRequired
+        id: PropTypes.string.isRequired,
+        moveTask: PropTypes.func.isRequired
+    },
+    statics : {
+        configureDragDrop(register) {
+            register(ItemTypes.TASK, {
+                dragSource,
+                dropTarget
+            });
+        }
     },
     render() {
         return (
-            <li className="list-group-item">
+            <li className="list-group-item"
+                {...this.dragSourceFor(ItemTypes.TASK)}
+                {...this.dropTargetFor(ItemTypes.TASK)}
+            >
                 <div className="row">
                     <div className="col-sm-9">
                         <div className="checkbox">
@@ -41,10 +71,10 @@ module.exports = React.createClass({
     },
     handleChange() {
         let done = React.findDOMNode(this.refs.status).checked,
-            { tid } = this.props;
-        taskActions.updateTask({ tid, done });
+            { id } = this.props;
+        taskActions.updateTask({ id, done });
     },
     handleDelete() {
-        taskActions.deleteTask(this.props.tid);
+        taskActions.deleteTask(this.props.id);
     }
 });

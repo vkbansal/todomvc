@@ -9,7 +9,8 @@ class TaskStore {
         this.bindListeners({
             onAddTask: taskActions.addTask,
             onUpdateTask: taskActions.updateTask,
-            onDeleteTask: taskActions.deleteTask
+            onDeleteTask: taskActions.deleteTask,
+            onReorderTasks: taskActions.reorderTasks
         });
 
         this.state = {
@@ -25,23 +26,35 @@ class TaskStore {
     }
 
     onUpdateTask(item) {
-        const { tid, done } = item;
+        const { id, done } = item;
         const { tasks } = this.state;
 
-        let currentTask = tasks.get(tid);
-
-        currentTask = currentTask.set("done", done);
+        let index = tasks.findIndex( t => t.get(id) === id);
 
         this.setState({
-            tasks: tasks.splice(tid, 1, currentTask)
+            tasks: tasks.setIn([index, "done"], done)
         });
     }
 
-    onDeleteTask(tid) {
+    onDeleteTask(id) {
         const { tasks } = this.state;
 
+        let index = tasks.findIndex( t => t.get(id) === id);
+
         this.setState({
-            tasks: tasks.splice(tid, 1)
+            tasks: tasks.splice(index, 1)
+        });
+    }
+
+    onReorderTasks(data) {
+        const { source, target } = data;
+        const { tasks } = this.state;
+
+        let sourceIndex = tasks.findIndex( t => t.get(id) === source);
+        let targetIndex = tasks.findIndex( t => t.get(id) === target);
+
+        this.setState({
+            tasks: tasks.splice(sourceIndex, 1)
         });
     }
 }
