@@ -1,13 +1,14 @@
 let React = require("react"),
+    PureRenderMixin = require("react/lib/ReactComponentWithPureRenderMixin"),
     taskActions = require("../actions/task-actions");
 
 let { PropTypes } = React;
 
 module.exports = React.createClass({
     displayName: "TaskItem",
+    mixins: [PureRenderMixin],
     propTypes: {
-        tid: PropTypes.number.isRequired,
-        done: PropTypes.bool
+        tid: PropTypes.number.isRequired
     },
     render() {
         return (
@@ -16,11 +17,15 @@ module.exports = React.createClass({
                     <div className="col-sm-9">
                         <div className="checkbox">
                             <label>
-                                <input ref="status" type="checkbox" checked={this.props.done} onChange={this.handleChange}/>
-                                { (this.props.done) ? (
-                                    <strike className="text-muted">{this.props.task}</strike>
+                                <input ref="status" type="checkbox" checked={this.props.task.get("done")} onChange={this.handleChange}/>
+                                {(this.props.task.get("done")) ? (
+                                    <strike className="text-muted">
+                                        {this.props.task.get("task")}
+                                    </strike>
                                 ) : (
-                                    <span>{this.props.task}</span>
+                                    <span>
+                                        {this.props.task.get("task")}
+                                    </span>
                                 )}
                             </label>
                         </div>

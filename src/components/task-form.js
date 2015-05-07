@@ -25,7 +25,7 @@ module.exports = React.createClass({
                 <ul className="list-group">
                     {this.state.tasks.map((task, i) => {
                         return (
-                            <TaskItem key={i} tid={i} className="list-group-item" {...task} />
+                            <TaskItem key={i} tid={i} className="list-group-item" task={task} />
                         );
                     })}
                 </ul>

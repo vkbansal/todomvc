@@ -4,15 +4,16 @@
   "description": "",
   "main": "gulpfile.js",
   "dependencies": {
-    "alt": "^0.16.1",
-    "classnames": "^1.2.2",
-    "lodash": "^3.7.0",
+    "alt": "^0.16.2",
+    "classnames": "^2.1.1",
+    "immutable": "^3.7.2",
+    "lodash": "^3.8.0",
     "react": "^0.13.2"
   },
   "devDependencies": {
-    "babel-eslint": "^3.0.1",
+    "babel-eslint": "^3.1.1",
     "babelify": "^6.0.2",
-    "browserify": "^10.0.0",
+    "browserify": "^10.1.2",
     "eslint": "^0.20.0",
     "eslint-plugin-react": "^2.2.0",
     "express": "^4.12.3",
