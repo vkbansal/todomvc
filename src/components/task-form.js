@@ -2,7 +2,8 @@ let React = require("react"),
     taskActions = require("../actions/task-actions"),
     taskStore = require("../stores/task-store"),
     TaskItem = require("./task-item"),
-    AltMixin = require("../mixins/alt-mixin");
+    AltMixin = require("../mixins/alt-mixin"),
+    uuid = require("node-uuid");
 
 module.exports = React.createClass({
     displayName: "TaskForm",
@@ -25,7 +26,13 @@ module.exports = React.createClass({
                 <ul className="list-group">
                     {this.state.tasks.map((task, i) => {
                         return (
-                            <TaskItem key={i} tid={i} className="list-group-item" task={task} />
+                            <TaskItem
+                                key={task.get("id")}
+                                id={task.get("id")}
+                                className="list-group-item"
+                                task={task}
+                                moveTask={this.handleReorder}
+                            />
                         );
                     })}
                 </ul>
@@ -35,11 +42,14 @@ module.exports = React.createClass({
     handleKeyPress(event) {
         if (event.keyCode === 13) {
             let task = React.findDOMNode(this.refs.input).value;
-            taskActions.addTask({task, done: false});
+            taskActions.addTask({task, done: false, id: uuid.v4()});
             React.findDOMNode(this.refs.input).value = "";
         }
     },
     handleUpdate() {
         this.setState(this.getInitialState());
+    },
+    handleReorder(source, target) {
+        taskActions.reorderTasks({source, target});
     }
 });

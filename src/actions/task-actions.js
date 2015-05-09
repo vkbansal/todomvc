@@ -2,7 +2,12 @@ let alt = require("../alt");
 
 class TaskActions {
     constructor() {
-        this.generateActions("addTask", "deleteTask", "updateTask");
+        this.generateActions(
+            "addTask",
+            "deleteTask",
+            "updateTask",
+            "reorderTasks"
+        );
     }
 }
 
