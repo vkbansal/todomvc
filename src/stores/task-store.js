@@ -1,60 +1,49 @@
+"use strict";
+
 let alt = require("../alt"),
-    immutable = require("alt/utils/immutableUtil"),
     { List, Map } = require("immutable"),
     taskActions = require("../actions/task-actions");
 
-@immutable
 class TaskStore {
     constructor() {
-        this.bindListeners({
-            onAddTask: taskActions.addTask,
-            onUpdateTask: taskActions.updateTask,
-            onDeleteTask: taskActions.deleteTask,
-            onReorderTasks: taskActions.reorderTasks
-        });
-
-        this.state = {
-            tasks: List([])
-        };
+        this.bindActions(taskActions);
+        this.tasks = List([]);
     }
 
     onAddTask(task) {
-        const { tasks } = this.state;
         this.setState({
-            tasks: tasks.push(Map(task))
+            tasks: this.tasks.push(Map(task))
         });
     }
 
     onUpdateTask(item) {
+        console.log(item);
         const { id, done } = item;
-        const { tasks } = this.state;
 
-        let index = tasks.findIndex( t => t.get(id) === id);
+        let index = this.tasks.findIndex( t => t.get("id") === id);
 
         this.setState({
-            tasks: tasks.setIn([index, "done"], done)
+            tasks: this.tasks.setIn([index, "done"], done)
         });
     }
 
     onDeleteTask(id) {
-        const { tasks } = this.state;
-
-        let index = tasks.findIndex( t => t.get(id) === id);
+        let index = this.tasks.findIndex( t => t.get("id") === id);
 
         this.setState({
-            tasks: tasks.splice(index, 1)
+            tasks: this.tasks.delete(index)
         });
     }
 
     onReorderTasks(data) {
         const { source, target } = data;
-        const { tasks } = this.state;
 
-        let sourceIndex = tasks.findIndex( t => t.get(id) === source);
-        let targetIndex = tasks.findIndex( t => t.get(id) === target);
+        let sourceIndex = this.tasks.findIndex( t => t.get("id") === source),
+            targetIndex = this.tasks.findIndex( t => t.get("id") === target);
 
         this.setState({
-            tasks: tasks.splice(sourceIndex, 1)
+            tasks: this.tasks.delete(sourceIndex)
+                        .splice(targetIndex, 0, this.tasks.get(sourceIndex))
         });
     }
 }

@@ -42,7 +42,7 @@ module.exports = React.createClass({
     handleKeyPress(event) {
         if (event.keyCode === 13) {
             let task = React.findDOMNode(this.refs.input).value;
-            taskActions.addTask({task, done: false, id: uuid.v1()});
+            taskActions.addTask({task, done: false, id: uuid.v4()});
             React.findDOMNode(this.refs.input).value = "";
         }
     },
