@@ -1,16 +1,28 @@
 let React = require("react"),
     taskActions = require("../actions/task-actions"),
     taskStore = require("../stores/task-store"),
-    TaskItem = require("./task-item"),
-    AltMixin = require("../mixins/alt-mixin"),
-    uuid = require("node-uuid");
+    TaskItem = require("./task-item");
 
-module.exports = React.createClass({
+import { DragDropContext } from "react-dnd";
+import HTML5Backend from "react-dnd/modules/backends/HTML5";
+
+function uuid() {
+    return Math.random().toString(36).substring(3);
+}
+
+const TaskForm = React.createClass({
     displayName: "TaskForm",
-    mixins: [AltMixin],
-    watchStores: [taskStore],
-    getAltState() {
+    getInitialState() {
         return taskStore.getState();
+    },
+    componentDidMount() {
+        taskStore.listen(this.handleUpdate);
+    },
+    componentWillUnmount() {
+        taskStore.unlisten(this.handleUpdate);
+    },
+    handleUpdate() {
+        this.setState(this.getInitialState());
     },
     render() {
         return (
@@ -42,7 +54,7 @@ module.exports = React.createClass({
     handleKeyPress(event) {
         if (event.keyCode === 13) {
             let task = React.findDOMNode(this.refs.input).value;
-            taskActions.addTask({task, done: false, id: uuid.v4()});
+            taskActions.addTask({task, done: false, id: uuid()});
             React.findDOMNode(this.refs.input).value = "";
         }
     },
@@ -53,3 +65,5 @@ module.exports = React.createClass({
         taskActions.reorderTasks({source, target});
     }
 });
+
+module.exports = DragDropContext(HTML5Backend)(TaskForm);

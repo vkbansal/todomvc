@@ -1,4 +1,6 @@
-let alt = require("../alt");
+"use strict";
+
+import alt from "../alt";
 
 class TaskActions {
     constructor() {
@@ -11,4 +13,4 @@ class TaskActions {
     }
 }
 
-module.exports = alt.createActions(TaskActions);
+export default alt.createActions(TaskActions);

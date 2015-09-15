@@ -1,44 +1,31 @@
 let React = require("react"),
-    PureRenderMixin = require("react/lib/ReactComponentWithPureRenderMixin"),
-    { DragDropMixin } = require("react-dnd"),
+    { DragSource, DropTarget } = require("react-dnd"),
     taskActions = require("../actions/task-actions"),
-    ItemTypes = require("../item-types");
+    ItemTypes = require("../item-types"),
+    flow = require("lodash/function/flow");
 
 let { PropTypes } = React;
 
-const dragSource = {
-    beginDrag(component) {
-        return {
-            item: {
-                id: component.props.id
-            }
-        };
+const dragSpec = {
+    beginDrag(props) {
+        return {id: props.id};
     }
 };
 
-const dropTarget = {
-    over(component, item) {
-        component.props.moveTask(item.id, component.props.id);
+const dropSpec = {
+    hover(props, monitor) {
+        props.moveTask(monitor.getItem().id, props.id);
     }
 };
 
-module.exports = React.createClass({
+const TaskItem = React.createClass({
     displayName: "TaskItem",
-    mixins: [PureRenderMixin, DragDropMixin],
     propTypes: {
         id: PropTypes.string.isRequired,
         moveTask: PropTypes.func.isRequired
     },
-    statics: {
-        configureDragDrop(register) {
-            register(ItemTypes.TASK, {
-                dragSource,
-                dropTarget
-            });
-        }
-    },
     render() {
-        const { isDragging } = this.getDragState(ItemTypes.TASK);
+        let {connectDragSource, connectDropTarget, isDragging } = this.props;
         const opacity = isDragging ? 0 : 1;
 
         const styles = {
@@ -46,15 +33,9 @@ module.exports = React.createClass({
             opacity: isDragging ? 0.5 : 1
         };
 
-        return (
-            <li className="list-group-item"
-                style={styles}
-                {...this.dragSourceFor(ItemTypes.TASK)}
-                {...this.dropTargetFor(ItemTypes.TASK)}
-            >
-                <div className="row"
-                    style={{ opacity }}
-                >
+        return flow(connectDropTarget, connectDragSource)(
+            <li className="list-group-item" style={styles}>
+                <div className="row" style={{ opacity }}>
                     <div className="col-sm-9">
                         <div className="checkbox">
                             <label>
@@ -89,3 +70,21 @@ module.exports = React.createClass({
         taskActions.deleteTask(this.props.id);
     }
 });
+
+module.exports = flow(
+    DragSource(
+        ItemTypes.TASK,
+        dragSpec,
+        (connect, monitor) => ({
+            connectDragSource: connect.dragSource(),
+            isDragging: monitor.isDragging()
+        })
+    ),
+    DropTarget(
+        ItemTypes.TASK,
+        dropSpec,
+        (connect/*, monitor*/) => ({
+            connectDropTarget: connect.dropTarget()
+        })
+    )
+)(TaskItem);
