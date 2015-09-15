@@ -7,6 +7,7 @@ class TaskActions {
         this.generateActions(
             "addTask",
             "deleteTask",
+            "archiveTask",
             "updateTask",
             "reorderTasks"
         );

@@ -54,7 +54,7 @@ const TaskItem = React.createClass({
                     </div>
                     <div className="col-sm-3 text-right">
                         <button className="btn btn-danger" onClick={this.handleDelete}>
-                            <i className="glyphicon glyphicon-trash"/>
+                            Archive
                         </button>
                     </div>
                 </div>
@@ -67,7 +67,7 @@ const TaskItem = React.createClass({
         taskActions.updateTask({ id: this.props.id, done });
     },
     handleDelete() {
-        taskActions.deleteTask(this.props.id);
+        taskActions.archiveTask(this.props.id);
     }
 });
 

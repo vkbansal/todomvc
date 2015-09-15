@@ -25,6 +25,8 @@ const TaskForm = React.createClass({
         this.setState(this.getInitialState());
     },
     render() {
+        let { tasks } = this.state,
+             filteredTasks = tasks.filter(t => !t.get("archived"));
         return (
             <div className="col-sm-6 col-sm-offset-3">
                 <div className="form-group">
@@ -36,15 +38,10 @@ const TaskForm = React.createClass({
                     />
                 </div>
                 <ul className="list-group">
-                    {this.state.tasks.map((task, i) => {
+                    {filteredTasks.map((task, i) => {
                         return (
-                            <TaskItem
-                                key={task.get("id")}
-                                id={task.get("id")}
-                                className="list-group-item"
-                                task={task}
-                                moveTask={this.handleReorder}
-                            />
+                            <TaskItem key={task.get("id")} className="list-group-item"
+                                id={task.get("id")} task={task} moveTask={this.handleReorder}/>
                         );
                     })}
                 </ul>

@@ -46,6 +46,14 @@ class TaskStore {
                         .splice(targetIndex, 0, this.tasks.get(sourceIndex))
         });
     }
+
+    onArchiveTask(id) {
+        let index = this.tasks.findIndex( t => t.get("id") === id);
+
+        this.setState({
+            tasks: this.tasks.setIn([index, "archived"], true)
+        });
+    }
 }
 
 module.exports = alt.createStore(TaskStore);
