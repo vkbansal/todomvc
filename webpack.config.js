@@ -1,4 +1,6 @@
-var webpack = require("webpack"),
+"use strict";
+
+let webpack = require("webpack"),
     path = require("path");
 
 module.exports = {

@@ -1,14 +1,8 @@
-let React = require("react"),
-    taskActions = require("../actions/task-actions"),
-    taskStore = require("../stores/task-store"),
-    TaskItem = require("./task-item");
+"use strict";
 
-import { DragDropContext } from "react-dnd";
-import HTML5Backend from "react-dnd/modules/backends/HTML5";
-
-function uuid() {
-    return Math.random().toString(36).substring(3);
-}
+import React from "react";
+import taskActions from "../actions/task-actions";
+import taskStore from "../stores/task-store";
 
 const TaskForm = React.createClass({
     displayName: "TaskForm",
@@ -23,6 +17,13 @@ const TaskForm = React.createClass({
     },
     handleUpdate() {
         this.setState(this.getInitialState());
+    },
+    handleKeyPress(event) {
+        if (event.keyCode === 13) {
+            let task = React.findDOMNode(this.refs.input).value;
+            taskActions.addTask({task, done: false, id: uuid()});
+            React.findDOMNode(this.refs.input).value = "";
+        }
     },
     render() {
         let { tasks } = this.state,
@@ -47,20 +48,7 @@ const TaskForm = React.createClass({
                 </ul>
             </div>
         );
-    },
-    handleKeyPress(event) {
-        if (event.keyCode === 13) {
-            let task = React.findDOMNode(this.refs.input).value;
-            taskActions.addTask({task, done: false, id: uuid()});
-            React.findDOMNode(this.refs.input).value = "";
-        }
-    },
-    handleUpdate() {
-        this.setState(this.getInitialState());
-    },
-    handleReorder(source, target) {
-        taskActions.reorderTasks({source, target});
     }
 });
 
-module.exports = DragDropContext(HTML5Backend)(TaskForm);
+export default TaskForm;

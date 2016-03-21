@@ -1,8 +1,7 @@
 "use strict";
 
-let alt = require("../alt"),
-    { List, Map } = require("immutable"),
-    taskActions = require("../actions/task-actions");
+import alt from "../alt";
+import taskActions from "../actions/task-actions";
 
 class TaskStore {
     constructor() {
@@ -17,7 +16,6 @@ class TaskStore {
     }
 
     onUpdateTask(item) {
-        console.log(item);
         const { id, done } = item;
 
         let index = this.tasks.findIndex( t => t.get("id") === id);
@@ -56,4 +54,4 @@ class TaskStore {
     }
 }
 
-module.exports = alt.createStore(TaskStore);
+export default alt.createStore(TaskStore);
