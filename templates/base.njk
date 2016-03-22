@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="../css/todo.css" media="screen" charset="utf-8">
+    </head>
+    <body>
+        <section id="todoapp" class="todoapp">
+            {% block todoapp %}{% endblock %}
+        </section>
+        {% block pre_footer %}{% endblock %}
+        <footer class="info">
+			<p>Double-click to edit a todo</p>
+			<p>Written by <a href="http://vkbansal.me">Vivek Kumar Bansal</a></p>
+			<p>Adopted from <a href="http://todomvc.com">TodoMVC</a></p>
+		</footer>
+        {% block post_footer %}{% endblock %}
+    </body>
+</html>
