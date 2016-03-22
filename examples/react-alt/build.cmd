@@ -1,2 +1,2 @@
 @echo off
-../../node_modules/.bin/webpack --progress --profile --colors %*
+..\..\node_modules\.bin\webpack --progress --profile --colors %*
