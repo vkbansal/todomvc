@@ -1,24 +1,28 @@
 "use strict";
 
+import R from "ramda";
 import alt from "../alt";
 import taskActions from "../actions/task-actions";
 
 class TaskStore {
     constructor() {
         this.bindActions(taskActions);
-        this.tasks = List([]);
+
+        this.state = {
+            tasks: []
+        };
     }
 
     onAddTask(task) {
         this.setState({
-            tasks: this.tasks.push(Map(task))
+            tasks: R.push(this.state.tasks, task)
         });
     }
 
     onUpdateTask(item) {
         const { id, done } = item;
 
-        let index = this.tasks.findIndex( t => t.get("id") === id);
+        let index = this.tasks.findIndex((t) => t.id === id);
 
         this.setState({
             tasks: this.tasks.setIn([index, "done"], done)
@@ -26,7 +30,7 @@ class TaskStore {
     }
 
     onDeleteTask(id) {
-        let index = this.tasks.findIndex( t => t.get("id") === id);
+        let index = this.tasks.findIndex((t) => t.id === id);
 
         this.setState({
             tasks: this.tasks.delete(index)
@@ -36,8 +40,8 @@ class TaskStore {
     onReorderTasks(data) {
         const { source, target } = data;
 
-        let sourceIndex = this.tasks.findIndex( t => t.get("id") === source),
-            targetIndex = this.tasks.findIndex( t => t.get("id") === target);
+        let sourceIndex = this.tasks.findIndex((t) => t.get("id") === source),
+            targetIndex = this.tasks.findIndex((t) => t.get("id") === target);
 
         this.setState({
             tasks: this.tasks.delete(sourceIndex)
@@ -46,7 +50,7 @@ class TaskStore {
     }
 
     onArchiveTask(id) {
-        let index = this.tasks.findIndex( t => t.get("id") === id);
+        let index = this.tasks.findIndex((t) => t.get("id") === id);
 
         this.setState({
             tasks: this.tasks.setIn([index, "archived"], true)
