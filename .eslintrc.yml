@@ -1,3 +1,4 @@
 ---
-  extends: ["vkbansal"]
-
+    extends: ["vkbansal", "vkbansal/react"]
+    rules:
+        no-mixed-requires: 0
