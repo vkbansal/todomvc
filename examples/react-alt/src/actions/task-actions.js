@@ -7,9 +7,11 @@ class TaskActions {
         this.generateActions(
             "addTask",
             "deleteTask",
-            "archiveTask",
+            "toggleTaskStatus",
             "updateTask",
-            "reorderTasks"
+            "setVisibilityFilter",
+            "clearCompleted",
+            "toggleAll"
         );
     }
 }
