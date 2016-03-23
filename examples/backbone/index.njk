@@ -1,0 +1,61 @@
+{% extends "base.njk" %}
+
+{% block todoapp %}
+    <header id="header" class="header">
+        <h1>todos</h1>
+        <input type="text" id="new-todo" class="new-todo" placeholder="What needs to be done"/>
+    </header>
+    <section id="main" class="main"  style="display: none">
+        <input class="toggle-all" id="toggle-all" type="checkbox"/>
+        <label for="toggle-all">Mark all as complete</label>
+        <ul id="todo-list" class="todo-list"></ul>
+    </section>
+    <footer id="footer" class="footer" style="display: none"></footer>
+{% endblock %}
+
+{% block post_footer %}
+    <script type="text/template" id="todo-item">
+        <div class="view">
+            <input class="toggle" type="checkbox" <%= done ? "checked" : "" %> />
+                <label><%- task %></label>
+                <button class="destroy"></button>
+            </div>
+            <input class="edit" type="text" value="<%- task %>"/>
+    </script>
+    <script type="text/template" id="footer-template">
+        <div>
+            <span class="todo-count"><%= active %> <%= active === 1 ? "item" : "items"%> left</span>
+
+            <ul id="filters" class="filters">
+                <li>
+                    <a href="#"
+                        <%= !filter ? "class=\"selected\"" : "" %>
+                        >
+                        All
+                    </a>
+                </li>
+                <li>
+                    <a href="#active"
+                        <%= filter === "active"? "class=\"selected\"" : "" %>
+                        >Active
+                    </a>
+                </li>
+                <li>
+                    <a href="#completed"
+                        <%= filter === "completed"? "class=\"selected\"" : "" %>
+                        >
+                        Completed
+                    </a>
+                </li>
+            </ul>
+
+            <% if (completed) { %>
+                <button class="clear-completed" id="clear-completed">
+                Clear completed
+                </button>
+            <% } %>
+        </div>
+    </script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.2.min.js"></script>
+    <script src="app.js" charset="utf-8"></script>
+{% endblock %}
