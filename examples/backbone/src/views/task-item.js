@@ -10,7 +10,7 @@ let TaskItemView = View.extend({
     events: {
         "click .toggle": "toggleCompleted",
         "dblclick label": "edit",
-        "click .destroy": "remove",
+        "click .destroy": "clear",
         "keypress .edit": "updateOnEnter",
         "keydown .edit": "revertOnEscape",
         "blur .edit": "close"
@@ -41,9 +41,6 @@ let TaskItemView = View.extend({
         this.$el.addClass("editing");
         this.$input.focus();
     },
-    clear() {
-        this.model.destroy();
-    },
     updateOnEnter(e) {
         if (e.keyCode === 13) {
             this.close();
@@ -69,6 +66,9 @@ let TaskItemView = View.extend({
         }
 
         this.$el.removeClass("editing");
+    },
+    clear() {
+        this.model.trigger("destroy", this.model);
     }
 });
 
