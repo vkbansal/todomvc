@@ -74,7 +74,7 @@ let TaskFormView = View.extend({
         this.todos.forEach((todo) => todo.set("done", completed));
     },
     clearCompleted() {
-        this.todos.completed().forEach((todo) => todo.collection.remove(todo));
+        this.todos.completed().forEach((todo) => todo.trigger("destroy", todo));
         return false;
     },
     filterTasks(e) {
