@@ -1,6 +1,6 @@
 for dir in ./examples/*/
 do
-    #dir=${dir%*/}
-    cd ${dir}
+    pushd ${dir}
     ./build.sh
+    popd
 done
