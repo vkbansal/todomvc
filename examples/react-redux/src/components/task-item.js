@@ -10,8 +10,9 @@ let { PropTypes } = React;
 const TaskItem = React.createClass({
     displayName: "TaskItem",
     propTypes: {
+        done: PropTypes.bool.isRequired,
         id: PropTypes.string.isRequired,
-        moveTask: PropTypes.func.isRequired
+        task: PropTypes.string.isRequired
     },
     getInitialState() {
         return {
