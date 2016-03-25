@@ -5,6 +5,7 @@
     "start": "rimraf ./public && gulp && http-server ./public"
   },
   "dependencies": {
+    "gulp-data": "^1.2.1",
     "todomvc-app-css": "^2.0.4"
   },
   "devDependencies": {

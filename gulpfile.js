@@ -1,6 +1,8 @@
 "use strict";
 
 let gulp = require("gulp"),
+    path = require("path"),
+    data = require("gulp-data"),
     rename = require("gulp-rename"),
     nunjucksRender = require("gulp-nunjucks-render");
 
@@ -16,6 +18,9 @@ gulp.task("todocss", () => {
 
 gulp.task("html", () => {
     gulp.src("./examples/**/*.njk")
+        .pipe(data((file) => ({
+            dir: path.dirname(file.relative)
+        })))
         .pipe(nunjucksRender({
             path: ["./templates"]
         }))
