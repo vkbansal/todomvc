@@ -5,15 +5,24 @@
         <link rel="stylesheet" href="../css/base.css" media="screen" charset="utf-8">
     </head>
     <body>
-        <section id="todoapp" class="todoapp">
-            {% block todoapp %}{% endblock %}
-        </section>
-        {% block pre_footer %}{% endblock %}
-        <footer class="info">
-			<p>Double-click to edit a todo</p>
-			<p>Written by <a href="http://vkbansal.me">Vivek Kumar Bansal</a></p>
-			<p>Adopted from <a href="http://todomvc.com">TodoMVC</a></p>
-		</footer>
-        {% block post_footer %}{% endblock %}
+        <div class="container">
+            <aside class="sidebar">
+                {{ content }}
+                <div class="view-source">
+                    <a href="https://github.com/vkbansal/todomvc/tree/master/examples/{{path}}" target="_blank">View Source</a>
+                </div>
+            </aside>
+            <div class="wrapper">
+                <section id="todoapp" class="todoapp">
+                    {% block todoapp %}{% endblock %}
+                </section>
+                <footer class="info">
+                    <p>Double-click to edit a todo</p>
+                    <p>Written by <a href="http://vkbansal.me">Vivek Kumar Bansal</a></p>
+                    <p>Adopted from <a href="http://todomvc.com">TodoMVC</a></p>
+                </footer>
+            </div>
+        </div>
+        {% block footer %}{% endblock %}
     </body>
 </html>

@@ -1,10 +1,12 @@
 "use strict";
 
 let gulp = require("gulp"),
+    fs = require("fs"),
     path = require("path"),
     data = require("gulp-data"),
     sass = require("gulp-sass"),
     rename = require("gulp-rename"),
+    md = require("markdown-it")(),
     nunjucksRender = require("gulp-nunjucks-render");
 
 gulp.task("default", ["todocss", "html"]);
@@ -31,11 +33,22 @@ gulp.task("styles:watch", ["styles"], () => {
 
 gulp.task("html", () => {
     gulp.src("./examples/**/*.njk")
-        .pipe(data((file) => ({
-            dir: path.dirname(file.relative)
-        })))
+        .pipe(data((file, callback) => {
+            let dir = path.dirname(file.path),
+                readme = path.join(dir, "README.md");
+
+            fs.readFile(readme, "utf8", (err, data) => {
+                callback(err, {
+                    path: path.dirname(file.relative),
+                    content: md.render(data)
+                });
+            });
+        }))
         .pipe(nunjucksRender({
-            path: ["./assets/templates"]
+            path: ["./assets/templates"],
+            envOptions: {
+                autoescape: false
+            }
         }))
         .pipe(gulp.dest("./public"));
 });
