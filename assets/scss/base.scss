@@ -1,0 +1,306 @@
+// @import "vendor/";
+@import "../../node_modules/normalize.css/normalize";
+
+$main-color:  #FF1744;
+$secondary-color: #26a69a;
+$white-light: rgba(255, 255, 255, 0.6);
+$grey: rgba(0, 0, 0, 0.87);
+$grey-light: rgba(0, 0, 0, 0.54);
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    line-height: 1.5;
+    font-family: "Roboto", sans-serif;
+    font-weight: normal;
+    color: $grey;
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    background:  $main-color;
+}
+
+.header, .main, .footer {
+    max-width: 550px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+.header, .footer {
+    margin-bottom: 2rem;
+}
+
+.main {
+    z-index: 2;
+}
+
+.info {
+    text-align: center;
+    font-size: 0.66rem;
+    color: $white-light;
+
+    a {
+        color: $white-light;
+    }
+}
+
+.todoapp {
+    h1 {
+    	width: 100%;
+    	font-size: 6rem;
+    	font-weight: 100;
+    	text-align: center;
+    	color: $white-light;
+        margin: 0;
+    	text-rendering: optimizeLegibility;
+    }
+}
+
+.new-todo, .edit {
+    background-color: transparent;
+    border: none;
+    display: block;
+    border-radius: 0;
+    outline: none;
+    height: 4rem;
+    width: 100%;
+    border-bottom: 1px solid $grey;
+    color: #333;
+    font-size: 1.2rem;
+    margin: 0 auto;
+    padding: 0 0 0 3.5rem;
+    box-shadow: none;
+    transition: all .3s;
+
+    &:focus {
+        border-bottom: 1px solid $grey;
+        box-shadow: 0 1px 0 0 $grey;
+    }
+}
+
+.new-todo {
+    border-bottom: 1px solid white;
+    color: white;
+
+    &:focus {
+        border-bottom: 1px solid white;
+        box-shadow: 0 1px 0 0 white;
+    }
+}
+
+.toggle-all {
+    line-height: 2rem;
+    font-size: 1rem;
+    -webkit-appearance: none;
+    appearence: none;
+    outline: none;
+    transform: rotateZ(90deg);
+    position: absolute;
+    top: -5.5rem;
+    left: 0;
+
+    &::before {
+        content: "❯";
+        font-size: 1.4rem;
+        color: $white-light;
+        padding: 0;
+        line-height: 3rem;
+        display: block;
+        height: 3rem;
+        width: 3rem;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    &:checked::before {
+        color: white;
+    }
+
+    & + label {
+        display: none;
+    }
+}
+
+.todo-list {
+    padding: 1rem 0;
+    margin: 0 auto;
+    list-style-type: none;
+    background: white;
+
+    .edit, .destroy, .editing .view {
+        display: none;
+    }
+
+    .editing .edit {
+        display: block;
+    }
+
+    .view {
+        position: relative;
+    }
+}
+
+.footer {
+    background: white;
+    display: flex;
+    position: relative;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    justify-content: center;
+    border-top: 1px solid $grey-light;
+
+    .todo-count, .clear-completed {
+        position: absolute;
+        display: inline-block;
+        line-height: 3rem;
+        padding: 0 10px;
+        color: $grey-light;
+
+    }
+
+    .todo-count {
+        left: 0;
+    }
+
+    .clear-completed {
+        right: 0;
+        background: transparent;
+        border: none;
+
+        &:hover{
+            text-decoration: underline;
+            color: $grey;
+        }
+    }
+
+    .filters {
+        padding: 0;
+        margin: 0;
+        list-style-type: none;
+        display: flex;
+
+        li a {
+            margin: 0;
+            border: none;
+            padding: 0 1rem;
+            float: left;
+            position: relative;
+            display: block;
+            text-decoration: none;
+            height: 3rem;
+            line-height: 3rem;
+            text-align: center;
+            font-weight: 500;
+            font-size: 1rem;
+            color: $grey-light;
+            overflow: hidden;
+
+            &.selected {
+                color: $grey;
+
+                &:before{
+                    height: 2px;
+                    display: block;
+                    content: " ";
+                    top: 0;
+                    left: 0;
+                    position: absolute;
+                    background: $secondary-color;
+                    animation: border-expand .2s cubic-bezier(.4,0,.4,1).01s alternate forwards;
+                    transition: all 1s cubic-bezier(.4,0,1,1);
+                }
+            }
+        }
+    }
+}
+
+.toggle {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    width: 1.2rem;
+    cursor: pointer;
+    display: inline-block;
+    height: 2rem;
+    line-height: 2rem;
+    font-size: 1rem;
+    -webkit-appearance: none;
+    appearence: none;
+    outline: none;
+
+    -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+    -moz-user-select: none; /* mozilla browsers */
+    -khtml-user-select: none; /* webkit (konqueror) browsers */
+    -ms-user-select: none; /* IE10+ */
+
+  /* checkbox aspect */
+    &:before {
+        content: '';
+        position: absolute;
+        top: 0.2rem;
+        left: 0;
+        width: 1.2rem;
+        height: 1.2rem;
+        z-index: 0;
+        border: 2px solid $grey;
+        border-radius: 1px;
+        margin-top: 2px;
+        transition: .2s;
+    }
+
+    &:checked:before {
+        top: 0.1rem;
+        left: -3px;
+        width: 12px; height: 22px;
+        border: 2px solid;
+        border-color: transparent $secondary-color $secondary-color transparent;
+        transform: rotate(40deg);
+        backface-visibility: hidden;
+        transform-origin: 100% 100%;
+    }
+
+    & + label {
+        white-space: pre-line;
+        word-break: break-all;
+        display: block;
+        line-height: 2rem;
+        padding: 1rem 1rem 1rem 3.5rem;
+        vertical-align: top;
+        font-size: 1.2rem;
+        -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+        -moz-user-select: none; /* mozilla browsers */
+        -khtml-user-select: none; /* webkit (konqueror) browsers */
+        -ms-user-select: none; /* IE10+ */
+    }
+}
+
+
+::-webkit-input-placeholder {
+   color: white;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+   color: white;
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+   color: white;
+}
+
+:-ms-input-placeholder {
+   color: white;
+}
+
+@keyframes border-expand {
+    from {
+        width: 0%;
+    }
+
+    to {
+        width: 100%;
+    }
+}
