@@ -5,19 +5,10 @@ let gulp = require("gulp"),
     path = require("path"),
     data = require("gulp-data"),
     sass = require("gulp-sass"),
-    rename = require("gulp-rename"),
     md = require("markdown-it")(),
     nunjucksRender = require("gulp-nunjucks-render");
 
-gulp.task("default", ["todocss", "html"]);
-
-gulp.task("todocss", () => {
-    gulp.src("./node_modules/todomvc-app-css/index.css")
-        .pipe(rename({
-            basename: "todo"
-        }))
-        .pipe(gulp.dest("./public/css"));
-});
+gulp.task("default", ["styles", "html"]);
 
 gulp.task("styles", () => {
     gulp.src("./assets/scss/base.scss")
