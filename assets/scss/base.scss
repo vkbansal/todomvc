@@ -1,8 +1,8 @@
 // @import "vendor/";
 @import "../../node_modules/normalize.css/normalize";
 
-$main-color:  #FF1744;
-$secondary-color: #26a69a;
+$main-color:  #F44336;
+$secondary-color: #36C2D6;
 $white-light: rgba(255, 255, 255, 0.6);
 $grey: rgba(0, 0, 0, 0.87);
 $grey-light: rgba(0, 0, 0, 0.54);
@@ -33,6 +33,7 @@ body {
 
     a {
         color: white;
+        text-decoration: underline;
 
         &:hover {
             text-decoration: underline;
@@ -67,6 +68,7 @@ body {
             background: white;
             color: $main-color;
             line-height: 2rem;
+            text-decoration: none;
             margin: 0 0.2rem 0.4rem;
             box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
         }
@@ -116,10 +118,11 @@ body {
 
     a {
         color: $main-color;
+        text-decoration: none;
 
         &:hover {
             text-decoration: underline;
-            color: darken($main-color, 10%);
+            color: darken($main-color, 5%);
         }
     }
 }
