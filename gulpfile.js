@@ -5,8 +5,12 @@ let gulp = require("gulp"),
     path = require("path"),
     data = require("gulp-data"),
     sass = require("gulp-sass"),
-    md = require("markdown-it")(),
+    md = require("markdown-it")({
+        html: true
+    }),
     nunjucksRender = require("gulp-nunjucks-render");
+
+md.use(require("markdown-it-decorate"));
 
 gulp.task("default", ["styles", "html"]);
 
