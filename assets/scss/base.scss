@@ -86,7 +86,6 @@ body {
 
 .sidebar {
     max-width: 350px;
-    height: 100%;
     background: white;
     padding: 1rem;
     min-height: 100vh;
@@ -264,12 +263,33 @@ body {
         display: none;
     }
 
+    .destroy {
+        background: transparent;
+        border: none;
+        outline: none;
+        position: absolute;
+        top: 1.5rem;
+        right: 1rem;
+        padding: 0;
+        line-height: 1rem;
+        font-size: 2rem;
+        color: $main-color;
+
+        &:after {
+            content: "×";
+        }
+    }
+
     .editing .edit {
         display: block;
     }
 
     .view {
         position: relative;
+    }
+
+    li:hover .destroy {
+        display: block;
     }
 }
 
@@ -396,7 +416,7 @@ body {
         word-break: break-all;
         display: block;
         line-height: 2rem;
-        padding: 1rem 1rem 1rem 3.5rem;
+        padding: 1rem 3rem 1rem 3.5rem;
         vertical-align: top;
         font-size: 1.2rem;
         -webkit-user-select: none; /* webkit (safari, chrome) browsers */
