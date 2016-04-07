@@ -14,7 +14,7 @@ import riot from "riot";
         this.editing = false;
 
         this.destory = () => {
-            opts.destory(this.id);
+            opts.destroy(this.id);
         };
 
         this.toggle = (e) => {
