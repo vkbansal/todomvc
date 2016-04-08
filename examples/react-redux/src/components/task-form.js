@@ -5,10 +5,6 @@ import { connect } from "react-redux";
 import * as actions from "../actions/task-actions";
 import TaskItem from "./task-item";
 
-function uid() {
-    return Math.random().toString(36).substr(9);
-}
-
 function getClass(visibilityFilter, status) {
     return visibilityFilter === status.toUpperCase() ? "selected" : "";
 }
@@ -22,7 +18,11 @@ const TaskForm = React.createClass({
         if (event.keyCode === 13) {
             let task = this.input.value;
 
-            this.props.dispatch(actions.addTask({task, done: false, id: uid()}));
+            this.props.dispatch(actions.addTask({
+                task,
+                done: false,
+                id: Math.random().toString(36).substr(2)
+            }));
             this.input.value = "";
         }
     },

@@ -1,40 +1,29 @@
 "use strict";
 
-import R from "ramda";
-
-function findTask(tasks, id) {
-    return R.findIndex(R.propEq("id", id))(tasks);
-}
+import assign from "object-assign";
 
 export default function(state = [], action) {
     switch (action.type) {
         case "ADD_TASK":
-            return R.concat(state, action.task);
+            return state.concat(action.task);
         case "DELETE_TASK":
-            return R.remove(findTask(state, action.id), 1, state);
+            return state.filter((t) => t.id !== action.id);
         case "TOGGLE_TASK_STATUS":
-            return R.set(
-                    R.compose(
-                        R.lensIndex(findTask(state, action.id)),
-                        R.lensProp("done")
-                    ),
-                    action.status,
-                    state
-                );
-
+            return state.map((t) => (
+                t.id === action.id
+                ? assign({}, t, {done: action.status})
+                : t
+            ));
         case "UPDATE_TASK":
-            return R.set(
-                R.compose(
-                    R.lensIndex(findTask(state, action.id)),
-                    R.lensProp("task")
-                ),
-                action.task,
-                state
-            );
+            return state.map((t) => (
+                t.id === action.id
+                ? assign({}, t, {task: action.task})
+                : t
+            ));
         case "CLEAR_COMPLETED":
-            return R.filter((t) => !t.done, state);
+            return state.filter((t) => !t.done);
         case "TOGGLE_ALL":
-            return R.map((t) => R.assoc("done", action.status, t), state);
+            return state.map((t) => assign({}, t, {done: action.status}));
         default:
             return state;
     }

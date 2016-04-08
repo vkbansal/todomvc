@@ -2,7 +2,6 @@
   "private": true,
   "dependencies": {
     "classnames": "^2.2.3",
-    "ramda": "^0.20.1",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
     "react-redux": "^4.4.1",
