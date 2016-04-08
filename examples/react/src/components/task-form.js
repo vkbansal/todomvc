@@ -1,19 +1,11 @@
 "use strict";
 
 import React from "react";
-import R from "ramda";
+import assign from "object-assign";
 import TaskItem from "./task-item";
-
-function uid() {
-    return Math.random().toString(36).substr(9);
-}
 
 function getClass(visibilityFilter, status) {
     return visibilityFilter === status.toUpperCase() ? "selected" : "";
-}
-
-function findTask(tasks, id) {
-    return R.findIndex(R.propEq("id", id))(tasks);
 }
 
 const TaskForm = React.createClass({
@@ -29,7 +21,11 @@ const TaskForm = React.createClass({
             let task = this.input.value;
 
             this.setState({
-                tasks: R.concat(this.state.tasks, {task, done: false, id: uid()})
+                tasks: this.state.tasks.concat({
+                    task,
+                    done: false,
+                    id: Math.random().toString(36).substr(2)
+                })
             });
 
             this.input.value = "";
@@ -43,44 +39,38 @@ const TaskForm = React.createClass({
     },
     handleClear() {
         this.setState({
-            tasks: R.filter((t) => !t.done, this.state.tasks)
+            tasks: this.state.tasks.filter((t) => !t.done)
         });
     },
     handleToggleAll(e) {
-        let status = e.target.checked;
+        let done = e.target.checked;
 
         this.setState({
-            tasks: R.map((t) => R.assoc("done", status, t), this.state.tasks)
+            tasks: this.state.tasks.map((t) => assign({}, t, {done}))
         });
     },
     toggleTaskStatus({id, done}) {
-        let index = findTask(this.state.tasks, id),
-            path = R.compose(
-                R.lensIndex(index),
-                R.lensProp("done")
-            );
+        let tasks = this.state.tasks
+                        .map((t) => (t.id === id
+                            ? assign({}, t, {done})
+                            : t
+                        ));
 
-        this.setState({
-            tasks: R.set(path, done, this.state.tasks)
-        });
+        this.setState({ tasks });
     },
     deleteTask(id) {
-        let index = findTask(this.state.tasks, id);
-
         this.setState({
-            tasks: R.remove(index, 1, this.state.tasks)
+            tasks: this.state.tasks.filter((t) => t.id !== id)
         });
     },
     updateTask({ id, task }) {
-        let index = findTask(this.state.tasks, id),
-            path = R.compose(
-                R.lensIndex(index),
-                R.lensProp("task")
-            );
+        let tasks = this.state.tasks
+                        .map((t) => (t.id === id
+                            ? assign({}, t, {task})
+                            : t
+                        ));
 
-        this.setState({
-            tasks: R.set(path, task, this.state.tasks)
-        });
+        this.setState({ tasks });
     },
     render() {
         let { tasks, visibilityFilter } = this.state,

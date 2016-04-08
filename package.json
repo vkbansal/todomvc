@@ -5,7 +5,8 @@
     "start": "rimraf ./public && gulp && http-server ./public"
   },
   "dependencies": {
-    "normalize.css": "^4.0.0"
+    "normalize.css": "^4.0.0",
+    "object-assign": "^4.0.1"
   },
   "devDependencies": {
     "babel-core": "^6.7.5",
