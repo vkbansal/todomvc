@@ -1,12 +1,8 @@
 "use strict";
 
-import R from "ramda";
+import assign from "object-assign";
 import alt from "../alt";
 import taskActions from "../actions/task-actions";
-
-function findTask(tasks, id) {
-    return R.findIndex(R.propEq("id", id))(tasks);
-}
 
 class TaskStore {
     constructor() {
@@ -20,40 +16,34 @@ class TaskStore {
 
     onAddTask(task) {
         this.setState({
-            tasks: R.concat(this.state.tasks, task)
+            tasks: this.state.tasks.concat(task)
         });
     }
 
     onDeleteTask(id) {
-        let index = findTask(this.state.tasks, id);
-
         this.setState({
-            tasks: R.remove(index, 1, this.state.tasks)
+            tasks: this.state.tasks.filter((t) => t.id !== id)
         });
     }
 
     onToggleTaskStatus({id, done}) {
-        let index = findTask(this.state.tasks, id),
-            path = R.compose(
-                R.lensIndex(index),
-                R.lensProp("done")
-            );
+        let tasks = this.state.tasks
+                        .map((t) => (t.id === id
+                            ? assign({}, t, {done})
+                            : t
+                        ));
 
-        this.setState({
-            tasks: R.set(path, done, this.state.tasks)
-        });
+        this.setState({ tasks });
     }
 
     onUpdateTask({ id, task }) {
-        let index = findTask(this.state.tasks, id),
-            path = R.compose(
-                R.lensIndex(index),
-                R.lensProp("task")
-            );
+        let tasks = this.state.tasks
+                        .map((t) => (t.id === id
+                            ? assign({}, t, {task})
+                            : t
+                        ));
 
-        this.setState({
-            tasks: R.set(path, task, this.state.tasks)
-        });
+        this.setState({ tasks });
     }
 
     onSetVisibilityFilter(visibilityFilter) {
@@ -62,13 +52,13 @@ class TaskStore {
 
     onClearCompleted() {
         this.setState({
-            tasks: R.filter((t) => !t.done, this.state.tasks)
+            tasks: this.state.tasks.filter((t) => !t.done)
         });
     }
 
-    toggleAll(status) {
+    toggleAll(done) {
         this.setState({
-            tasks: R.map((t) => R.assoc("done", status, t), this.state.tasks)
+            tasks: this.state.tasks.map((t) => assign({}, t, {done}))
         });
     }
 }
