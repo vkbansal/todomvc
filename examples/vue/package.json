@@ -1,8 +1,0 @@
-{
-  "private": true,
-  "dependencies": {
-    "babel-preset-es2015-riot": "^1.0.4",
-    "riot": "^2.3.18",
-    "riotjs-loader": "^3.0.0"
-  }
-}

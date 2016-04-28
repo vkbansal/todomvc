@@ -8,5 +8,4 @@
 **Libraries Used**
 
 - [React](https://facebook.github.io/react/)
-- [Ramda](http://ramdajs.com/)
 - [Alt](http://alt.js.org/)

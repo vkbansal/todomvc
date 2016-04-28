@@ -10,5 +10,4 @@
 **Libraries Used**
 
 - [React](https://facebook.github.io/react/)
-- [Ramda](http://ramdajs.com/)
 - [Redux](http://redux.js.org/)

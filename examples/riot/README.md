@@ -5,4 +5,3 @@
 **Libraries Used**
 
 - [Riot](http://riotjs.com/)
-- [Ramda](http://ramdajs.com/)
