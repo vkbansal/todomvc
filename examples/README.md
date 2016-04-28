@@ -10,6 +10,7 @@ This my playground for learning new JavaScript (or Compile to JS) frameworks and
 - [React](./react/)
 - [React + Alt](./react-alt/)
 - [React + Redux](./react-redux/)
+- [Riot](./riot/)
 <!-- {ul:.examples} -->
 
 ## Credits <!-- {.credits} -->

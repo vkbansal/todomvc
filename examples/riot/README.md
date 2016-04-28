@@ -1,4 +1,4 @@
-# React
+# Riot
 > A React-like user interface micro-library. Riot brings custom tags to all modern browsers. Think React + Polymer but with enjoyable syntax and a small learning curve.
 > *[Riot - riotjs.com](http://riotjs.com/)*
 
