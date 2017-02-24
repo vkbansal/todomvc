@@ -1,8 +1,10 @@
 {
   "private": true,
   "scripts": {
-    "build": "webpack --progress --profile --colors",
-    "start": "rimraf ./public && gulp && http-server ./public"
+    "bootstrap": "npm install && ./scripts/install.sh",
+    "bootstrap:yarn": "rm -rf node_modules && yarn install --no-lockfile && ./scripts/install-yarn.sh",
+    "build": "./scripts/build.sh",
+    "start": "http-server ./public"
   },
   "dependencies": {
     "normalize.css": "^4.0.0",
