@@ -2,3 +2,4 @@ node_modules/
 *.map
 *.log
 public/
+yarn.lock
