@@ -1,6 +1,7 @@
 for dir in ./examples/*/
 do
     pushd ${dir}
-    npm install
+    rm -rf node_modules
+    yarn --no-lockfile install
     popd
 done
