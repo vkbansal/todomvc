@@ -1,14 +1,17 @@
-#Learn Flux
-This is my experimental repo for learning [flux](http://facebook.github.io/flux/).
+#TODO MVC
+This is my experimental repo for various javascript frameworks and libraries. [Live Demo](vkbansal.github.io/learn-flux/).
 
-It's a simple TODO list made using flux architecure, ES6 and ReactJS. [Live Demo](vkbansal.github.io/learn-flux/).
+This repo is inspired from http://todomvc.com/
 
-## Tools used
-- [ReactJS](https://facebook.github.io/react) - Awesome library for making ui components
-- [Alt](https://github.com/goatslacker/alt) - Flux implementation
-- [Babel](https://babeljs.io/) - ES6 to ES5 transpiler
-- [React-DnD](https://github.com/gaearon/react-dnd) - Drag and drop for React with full DOM control
-- [ImmutableJS](https://facebook.github.io/immutable-js/) - Immutable persistent data collections for Javascript which increase efficiency and simplicity.
+## Examples
+- [x] Backbone `v1.3.3`
+- [x] React `v15.4.2` + alt `v0.18.6`
+- [x] React `v15.4.2` + redux `v3.6.0` + react-redux `v5.0.3` 
+- [x] React `v15.4.2`
+- [x] Riot `v2.3.18`
+- [ ] Vue
+- [ ] React + mobx
+- [ ] cyclejs
 
 ## Usage
 - Clone the repo
